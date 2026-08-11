@@ -495,7 +495,58 @@ body.dark .check {
 .color-choice.selected {
     border-color: var(--text);
 }
+.schedule-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
 
+.schedule-option {
+    border: 1px solid var(--border);
+    background: var(--background);
+    color: var(--text);
+    border-radius: 13px;
+    padding: 13px 10px;
+    font-weight: 700;
+    transition: transform .15s ease, border-color .15s ease, background .15s ease;
+}
+
+.schedule-option:active {
+    transform: scale(.97);
+}
+
+.schedule-option.selected {
+    border: 2px solid var(--purple);
+    background: var(--purple-light);
+    color: var(--purple);
+}
+
+.schedule-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 7px;
+    margin-top: 10px;
+}
+
+.day-choice {
+    aspect-ratio: 1;
+    border: 1px solid var(--border);
+    background: var(--background);
+    color: var(--text);
+    border-radius: 50%;
+    font-weight: 800;
+    transition: transform .15s ease, background .15s ease;
+}
+
+.day-choice:active {
+    transform: scale(.92);
+}
+
+.day-choice.selected {
+    background: var(--purple);
+    border-color: var(--purple);
+    color: white;
+}
 .modal-buttons {
     display: flex;
     gap: 10px;
@@ -895,7 +946,37 @@ body.dark .calendar-day.vacation {
         <label class="form-label">ICON</label>
 
         <div class="emoji-grid" id="emojiGrid"></div>
+<label class="form-label">SCHEDULE</label>
 
+<div class="schedule-options">
+    <button
+        type="button"
+        class="schedule-option selected"
+        id="scheduleDaily"
+        onclick="selectSchedule('daily')">
+        Every day
+    </button>
+
+    <button
+        type="button"
+        class="schedule-option"
+        id="scheduleWeekly"
+        onclick="selectSchedule('weekly')">
+        Specific days
+    </button>
+</div>
+
+<div id="scheduleDays" class="schedule-days" style="display:none;">
+
+    <button type="button" class="day-choice" data-day="1">M</button>
+    <button type="button" class="day-choice" data-day="2">T</button>
+    <button type="button" class="day-choice" data-day="3">W</button>
+    <button type="button" class="day-choice" data-day="4">T</button>
+    <button type="button" class="day-choice" data-day="5">F</button>
+    <button type="button" class="day-choice" data-day="6">S</button>
+    <button type="button" class="day-choice" data-day="0">S</button>
+
+</div>
         <label class="form-label">COLOR</label>
 
         <div class="color-grid" id="colorGrid"></div>
