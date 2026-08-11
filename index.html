@@ -455,10 +455,12 @@ body.dark .check {
 
 .emoji-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(42px, 1fr));
     gap: 7px;
+    width: 100%;
+    box-sizing: border-box;
 }
-
+    
 .emoji-choice {
     border: 1px solid var(--border);
     background: var(--background);
