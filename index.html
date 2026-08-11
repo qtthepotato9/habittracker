@@ -1,1 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#7C5CFC">
+  <title>HabitFlow</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+                   "Helvetica Neue", Arial, sans-serif;
+      background: #f6f5fb;
+      color: #20202a;
+      min-height: 100vh;
+    }
+
+    .app {
+      max-width: 500px;
+      margin: 0 auto;
+      min-height: 100vh;
+      padding: 24px 18px 100px;
+    }
+
+    .header {
+      margin-bottom: 24px;
+    }
+
+    .greeting {
+      font-size: 15px;
+      color: #777486;
+      margin-bottom: 5px;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 750;
+      letter-spacing: -1px;
+    }
+
+    .date {
+      color: #777486;
+      margin-top: 6px;
+      font-size: 15px;
+    }
+
+    .progress-card {
+      background: linear-gradient(135deg, #7c5cfc, #9a7cff);
+      color: white;
+      border-radius: 24px;
+      padding: 22px;
+      margin-bottom: 25px;
+      box-shadow: 0 10px 25px rgba(124, 92, 252, .2);
+    }
+
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .progress-title {
+      font-weight: 700;
+      font-size: 17px;
+    }
+
+    .progress-number {
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .progress-bar {
+      height: 9px;
+      background: rgba(255,255,255,.25);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: white;
+      border-radius: 20px;
+      transition: width .3s ease;
+      width: 0%;
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 750;
+      color: #8a8794;
+      letter-spacing: .7px;
+      margin: 0 4px 12px;
+    }
+
+    .habit {
+      background: white;
+      border-radius: 20px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 11px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.04);
+    }
+
+    .habit-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+      flex-shrink: 0;
+    }
+
+    .habit-info {
+      flex: 1;
+    }
+
+    .habit-name {
+      font-size: 16px;
+      font-weight: 650;
+      margin-bottom: 4px;
+    }
+
+    .habit-subtitle {
+      font-size: 13px;
+      color: #918e9a;
+    }
+
+    .check {
+      width: 31px;
+      height: 31px;
+      border-radius: 50%;
+      border: 2px solid #d7d4df;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .check.completed {
+      background: #55c878;
+      border-color: #55c878;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 35px 20px;
+      color: #8c8995;
+    }
+
+    .empty-icon {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .add-button {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      border: none;
+      background: #7c5cfc;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 18px;
+      font-size: 16px;
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(124,92,252,.3);
+      cursor: pointer;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: #121217;
+        color: #f5f4fa;
+      }
+
+      .habit {
+        background: #1d1d24;
+      }
+
+      .habit-subtitle,
+      .date,
+      .greeting,
+      .empty,
+      .section-title {
+        color: #9793a3;
+      }
+
+      .check {
+        background: #1d1d24;
+        border-color: #4a4753;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app">
+
+    <div class="header">
+      <div class="greeting">Good morning ☀️</div>
+      <h1>Today</h1>
+      <div class="date" id="date"></div>
+    </div>
+
+    <div class="progress-card">
+      <div class="progress-top">
+        <div class="progress-title">Today's progress</div>
+        <div class="progress-number" id="progressNumber">0 / 0</div>
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <div class="section-title">TODAY'S HABITS</div>
+
+    <div id="habitList"></div>
+
+  </div>
+
+  <button class="add-button" onclick="addHabit()">
+    + Add Habit
+  </button>
+
+  <script>
+
+    const defaultHabits = [
+      {
+        id: 1,
+        name: "Drink Water",
+        icon: "💧",
+        color: "#DDF4FF",
+        completed: false
+      },
+      {
+        id: 2,
+        name: "Exercise",
+        icon: "🏃",
+        color: "#E7F8E9",
+        completed: false
+      },
+      {
+        id: 3,
+        name: "Read",
+        icon: "📚",
+        color: "#FFF0D8",
+        completed: false
+      },
+      {
+        id: 4,
+        name: "Meditate",
+        icon: "🧘",
+        color: "#EEE7FF",
+        completed: false
+      }
+    ];
+
+    let habits = JSON.parse(
+      localStorage.getItem("habitflow-habits")
+    ) || defaultHabits;
+
+    function saveHabits() {
+      localStorage.setItem(
+        "habitflow-habits",
+        JSON.stringify(habits)
+      );
+    }
+
+    function displayDate() {
+      const today = new Date();
+
+      const options = {
+        weekday: "long",
+        month: "long",
+        day: "numeric"
+      };
+
+      document.getElementById("date").textContent =
+        today.toLocaleDateString("en-US", options);
+    }
+
+    function renderHabits() {
+
+      const list = document.getElementById("habitList");
+
+      list.innerHTML = "";
+
+      if (habits.length === 0) {
+
+        list.innerHTML = `
+          <div class="empty">
+            <div class="empty-icon">🌱</div>
+            <div>No habits yet.</div>
+            <div>Add your first habit below!</div>
+          </div>
+        `;
+
+        updateProgress();
+        return;
+      }
+
+      habits.forEach(habit => {
+
+        const item = document.createElement("div");
+
+        item.className = "habit";
+
+        item.innerHTML = `
+
+          <div
+            class="habit-icon"
+            style="background:${habit.color}"
+          >
+            ${habit.icon}
+          </div>
+
+          <div class="habit-info">
+
+            <div class="habit-name">
+              ${habit.name}
+            </div>
+
+            <div class="habit-subtitle">
+              Daily habit
+            </div>
+
+          </div>
+
+          <button
+            class="check ${habit.completed ? "completed" : ""}"
+            onclick="toggleHabit(${habit.id})"
+          >
+            ${habit.completed ? "✓" : ""}
+          </button>
+
+        `;
+
+        list.appendChild(item);
+
+      });
+
+      updateProgress();
+    }
+
+    function toggleHabit(id) {
+
+      habits = habits.map(habit => {
+
+        if (habit.id === id) {
+
+          return {
+            ...habit,
+            completed: !habit.completed
+          };
+
+        }
+
+        return habit;
+
+      });
+
+      saveHabits();
+
+      renderHabits();
+    }
+
+    function updateProgress() {
+
+      const total = habits.length;
+
+      const completed =
+        habits.filter(habit => habit.completed).length;
+
+      document.getElementById("progressNumber").textContent =
+        `${completed} / ${total}`;
+
+      const percentage =
+        total === 0 ? 0 : (completed / total) * 100;
+
+      document.getElementById("progressFill").style.width =
+        percentage + "%";
+    }
+
+    function addHabit() {
+
+      const name = prompt("What habit do you want to add?");
+
+      if (!name || !name.trim()) {
+        return;
+      }
+
+      const newHabit = {
+
+        id: Date.now(),
+
+        name: name.trim(),
+
+        icon: "⭐",
+
+        color: "#EEE7FF",
+
+        completed: false
+
+      };
+
+      habits.push(newHabit);
+
+      saveHabits();
+
+      renderHabits();
+    }
+
+    displayDate();
+
+    renderHabits();
+
+  </script>
+
+</body>
+</html>
