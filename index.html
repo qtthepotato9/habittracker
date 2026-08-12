@@ -1105,7 +1105,24 @@ body.dark .calendar-day.vacation {
     </div>
 
 </div>
+<div class="modal-backdrop" id="habitHistoryModal">
 
+    <div class="modal">
+
+        <h2 id="habitHistoryTitle">Habit History</h2>
+
+        <div id="habitHistoryContent"></div>
+
+        <button
+            type="button"
+            class="secondary-button"
+            onclick="closeHabitHistory()">
+            Close
+        </button>
+
+    </div>
+
+</div>
 
 <!-- VACATION MODAL -->
 
@@ -1652,11 +1669,35 @@ function renderToday() {
         card.style.cursor = "pointer";
 
         card.addEventListener(
-        "click",
+            "click",
             () => {
-                alert(
-                    `History for ${habit.name} coming next!`
-                );
+
+                document.getElementById(
+                    "habitHistoryTitle"
+                ).textContent =
+                    habit.name + " History";
+
+                document.getElementById(
+                    "habitHistoryContent"
+                ).innerHTML = `
+                    <div class="habit-history-placeholder">
+                        <div style="font-size:40px;">
+                            ${habit.icon}
+                        </div>
+
+                        <h3>
+                            ${escapeHTML(habit.name)}
+                        </h3>
+
+                        <p>
+                            Your detailed habit history will appear here.
+                        </p>
+                    </div>
+        `        ;
+
+                document.getElementById(
+                    "habitHistoryModal"
+                ).classList.add("show");
             }
         );
         card.innerHTML = `
@@ -2015,7 +2056,11 @@ function closeHabitModal() {
         .classList.remove("show");
 
 }
-
+function closeHabitHistory() {
+    document
+        .getElementById("habitHistoryModal")
+        .classList.remove("show");
+}
 function deleteHabit() {
 
     if (editingHabitId === null) {
