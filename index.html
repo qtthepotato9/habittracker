@@ -556,7 +556,26 @@ body.dark .check {
 .modal-buttons button {
     flex: 1;
 }
+.delete-habit-button {
+    width: 100%;
+    margin-top: 14px;
+    padding: 13px 16px;
+    border: 1px solid #ff3b30;
+    border-radius: 14px;
+    background: transparent;
+    color: #ff3b30;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+        transform .15s ease,
+        background .15s ease;
+}
 
+.delete-habit-button:active {
+    transform: scale(.98);
+    background: rgba(255, 59, 48, .08);
+}
 .calendar {
     background: var(--card);
     border-radius: 22px;
@@ -984,18 +1003,26 @@ body.dark .calendar-day.vacation {
         <div class="modal-buttons">
 
             <button
-                class="secondary-button"
+                class="btn secondary"
                 onclick="closeHabitModal()">
                 Cancel
             </button>
 
             <button
-                class="primary-button"
+                class="btn primary"
                 onclick="saveHabit()">
-                Save
+                Save Habit
             </button>
 
         </div>
+        
+        <button
+            type="button"
+            id="deleteHabitButton"
+            class="delete-habit-button"
+            onclick="deleteHabit()">
+            🗑️ Delete Habit
+        </button>
 
     </div>
 
@@ -1786,7 +1813,16 @@ function setupScheduleChoices() {
 function openHabitModal(id = null) {
 
     editingHabitId = id;
+    const deleteButton =
+        document.getElementById(
+            "deleteHabitButton"
+        );
 
+    deleteButton.style.display =
+        id === null
+            ? "none"
+            : "block";
+    
     const modal =
         document.getElementById("habitModal");
 
@@ -1893,6 +1929,47 @@ function closeHabitModal() {
 
 }
 
+function deleteHabit() {
+
+    if (editingHabitId === null) {
+        return;
+    }
+
+    const habit =
+        data.habits.find(
+            h =>
+                h.id ===
+                editingHabitId
+        );
+
+    if (!habit) {
+        return;
+    }
+
+    const confirmed =
+        confirm(
+            `Delete "${habit.name}"? This cannot be undone.`
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    data.habits =
+        data.habits.filter(
+            h =>
+                h.id !==
+                editingHabitId
+        );
+
+    saveData();
+
+    editingHabitId = null;
+
+    closeHabitModal();
+
+    render();
+}
 
 function saveHabit() {
 
