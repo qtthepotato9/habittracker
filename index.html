@@ -559,22 +559,28 @@ body.dark .check {
 .delete-habit-button {
     width: 100%;
     margin-top: 14px;
-    padding: 13px 16px;
-    border: 1px solid #ff3b30;
+    padding: 14px 16px;
+    border: 1px solid rgba(255, 59, 48, 0.25);
     border-radius: 14px;
-    background: transparent;
+    background: rgba(255, 59, 48, 0.08);
     color: #ff3b30;
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
+    font-family: inherit;
     transition:
-        transform .15s ease,
-        background .15s ease;
+        transform 0.15s ease,
+        background 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.delete-habit-button:hover {
+    background: rgba(255, 59, 48, 0.13);
 }
 
 .delete-habit-button:active {
-    transform: scale(.98);
-    background: rgba(255, 59, 48, .08);
+    transform: scale(0.98);
+    opacity: 0.8;
 }
 .calendar {
     background: var(--card);
