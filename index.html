@@ -144,6 +144,10 @@ h1 {
     align-items: center;
     gap: 13px;
     box-shadow: 0 3px 12px rgba(0,0,0,.035);
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .habit-icon {
@@ -176,18 +180,26 @@ h1 {
 .habit-actions {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: 8px;
+    flex: 0 0 auto;
+    margin-left: auto;
 }
 
 .small-button {
     width: 31px;
     height: 31px;
+    min-width: 31px;
+    flex: 0 0 31px;
     border: 0;
     border-radius: 10px;
     background: var(--background);
     color: var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
 }
-
 .check {
     width: 34px;
     height: 34px;
