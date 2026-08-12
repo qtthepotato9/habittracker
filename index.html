@@ -783,6 +783,18 @@ body.dark .calendar-day.vacation {
         border-radius: 20px 20px 0 0;
     }
 }
+@media (max-width: 600px) {
+    .habit-stat-details {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .habit-stat-details span {
+        display: block;
+        white-space: nowrap;
+    }
+}
 </style>
 </head>
 
@@ -2368,14 +2380,11 @@ const completionPercent =
                         ${escapeHTML(habit.name)}
                     </div>
 
-                    <div class="habit-detail">
-                        🔥 ${current} day current streak
-                        &nbsp; • &nbsp;
-                        🏆 ${best} best
-                        <br>
-                        📊 ${completionPercent}% completion
-                        &nbsp; • &nbsp;
-                        ✅ ${completed} completions
+                    <div class="habit-detail habit-stat-details">
+                        <span>🔥 ${current} day current streak</span>
+                        <span>🏆 ${best} best</span>
+                        <span>📊 ${completionPercent}% completion</span>
+                        <span>✅ ${completed} completions</span>
                     </div>
 
                 </div>
