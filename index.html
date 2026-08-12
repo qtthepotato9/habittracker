@@ -1680,20 +1680,106 @@ function renderToday() {
                 document.getElementById(
                     "habitHistoryContent"
                 ).innerHTML = `
-                    <div class="habit-history-placeholder">
-                        <div style="font-size:40px;">
-                            ${habit.icon}
+                    document.getElementById(
+                        "habitHistoryContent"
+                    ).innerHTML = `
+
+                        <div class="habit-history-summary">
+
+                            <div class="history-stat">
+                                <strong>${completionPercent}%</strong>
+                                <span>Completion</span>
+                            </div>
+
+                            <div class="history-stat">
+                                <strong>🔥 ${current}</strong>
+                                <span>Current streak</span>
+                            </div>
+
+                            <div class="history-stat">
+                                <strong>🏆 ${best}</strong>
+                                <span>Best streak</span>
+                            </div>
+
+                            <div class="history-stat">
+                                <strong>✅ ${completed}</strong>
+                                <span>Completions</span>
+                            </div>
+
                         </div>
 
-                        <h3>
-                            ${escapeHTML(habit.name)}
-                        </h3>
+                        <div class="history-section-title">
+                            LAST 30 DAYS
+                        </div>
+                
+                        <div class="habit-history-calendar">
 
-                        <p>
-                            Your detailed habit history will appear here.
-                        </p>
-                    </div>
-        `        ;
+                            ${Array.from(
+                                { length: 30 },
+                                (_, index) => {
+
+                                    const date =
+                                        new Date();
+
+                                    date.setDate(
+                                        date.getDate() -
+                                        (29 - index)
+                                    );
+
+                                    const key =
+                                        dateKey(date);
+
+                                    const scheduled =
+                                        isHabitScheduledForDate(
+                                            habit,
+                                            date
+                                        );
+
+                                    const completedToday =
+                                        scheduled &&
+                                        isCompleted(
+                                            habit,
+                                            key
+                                        );
+
+                                    let status = "not-scheduled";
+
+                                    if (scheduled) {
+                                        status =
+                                            completedToday
+                                                ? "completed"
+                                                : "missed";
+                                    }
+
+                                    return `
+                                        <div class="history-day ${status}">
+                                            <div class="history-day-name">
+                                                ${date.toLocaleDateString(
+                                                    "en-US",
+                                                    { weekday: "short" }
+                                                )}
+                                            </div>
+
+                                            <div class="history-day-number">
+                                                ${date.getDate()}
+                                            </div>
+
+                                            <div class="history-day-status">
+                                                ${
+                                                    status === "completed"
+                                                        ? "✓"
+                                                        : status === "missed"
+                                                            ? "×"
+                                                            : "—"
+                                                }
+                                            </div>
+                                        </div>
+                                    ;
+                                }
+                            ).join("")}
+
+                        </div>
+                    ;
 
                 document.getElementById(
                     "habitHistoryModal"
