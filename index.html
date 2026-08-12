@@ -2309,6 +2309,42 @@ const percent =
                 getBestStreak(
                     habit
                 );
+            let completed = 0;
+            let possible = 0;
+
+            for (let i = 0; i < 365; i++) {
+
+                const date = new Date();
+
+                date.setDate(
+                    date.getDate() - i
+                );
+
+                const key = dateKey(date);
+
+                if (isVacation(key)) {
+                    continue;
+                }
+
+                if (!isHabitScheduledForDate(habit, date)) {
+                    continue;
+                }
+
+                possible++;
+
+                if (isCompleted(habit, key)) {
+                    completed++;
+                }
+            }
+
+const completionPercent =
+    possible === 0
+        ? 0
+        : Math.round(
+            completed /
+            possible *
+            100
+        );
 
             const card =
                 document.createElement(
@@ -2336,6 +2372,10 @@ const percent =
                         🔥 ${current} day current streak
                         &nbsp; • &nbsp;
                         🏆 ${best} best
+                        <br>
+                        📊 ${completionPercent}% completion
+                        &nbsp; • &nbsp;
+                        ✅ ${completed} completions
                     </div>
 
                 </div>
