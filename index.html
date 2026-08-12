@@ -2108,57 +2108,68 @@ function renderStats() {
         data.habits.length;
 
 
-    let completed = 0;
+let completed = 0;
 
-    let possible = 0;
+let possible = 0;
 
-    for (
-        let i = 0;
-        i < 30;
-        i++
-    ) {
+for (
+    let i = 0;
+    i < 30;
+    i++
+) {
 
-        const date =
-            new Date();
+    const date =
+        new Date();
 
-        date.setDate(
-            date.getDate() - i
-        );
+    date.setDate(
+        date.getDate() - i
+    );
 
-        const key =
-            dateKey(date);
+    const key =
+        dateKey(date);
 
-        if (isVacation(key)) {
-            continue;
-        }
-
-        data.habits.forEach(
-            habit => {
-
-                possible++;
-
-                if (
-                    isCompleted(
-                        habit,
-                        key
-                    )
-                ) {
-                    completed++;
-                }
-
-            }
-        );
-
+    if (isVacation(key)) {
+        continue;
     }
 
-    const percent =
-        possible === 0
-        ? 0
-        : Math.round(
-            completed /
-            possible *
-            100
-        );
+    data.habits.forEach(
+        habit => {
+
+            // Only count this day if
+            // the habit was scheduled.
+            if (
+                !isHabitScheduledForDate(
+                    habit,
+                    date
+                )
+            ) {
+                return;
+            }
+
+            possible++;
+
+            if (
+                isCompleted(
+                    habit,
+                    key
+                )
+            ) {
+                completed++;
+            }
+
+        }
+    );
+
+}
+
+const percent =
+    possible === 0
+    ? 0
+    : Math.round(
+        completed /
+        possible *
+        100
+    );
 
     document.getElementById(
         "overallCompletion"
