@@ -1183,7 +1183,26 @@ function dateKey(date) {
 
     return `${year}-${month}-${day}`;
 }
+function isHabitScheduledForDate(habit, date) {
 
+    if (!habit.schedule) {
+        return true;
+    }
+
+    if (habit.schedule.type === "daily") {
+        return true;
+    }
+
+    if (habit.schedule.type === "weekly") {
+
+        const day =
+            date.getDay();
+
+        return habit.schedule.days.includes(day);
+    }
+
+    return true;
+}
 function todayKey() {
 
     return dateKey(new Date());
@@ -1296,23 +1315,30 @@ function toggleHabit(id) {
 function getCurrentStreak(habit) {
 
     let streak = 0;
-
     let date = new Date();
 
     while (true) {
 
         const key = dateKey(date);
 
+        // Vacation days do not break a streak
         if (isVacation(key)) {
-
             date.setDate(
                 date.getDate() - 1
             );
-
             continue;
-
         }
 
+        // Days this habit is NOT scheduled
+        // do not count toward or break the streak
+        if (!isHabitScheduledForDate(habit, date)) {
+            date.setDate(
+                date.getDate() - 1
+            );
+            continue;
+        }
+
+        // This was a scheduled day
         if (isCompleted(habit, key)) {
 
             streak++;
@@ -1326,11 +1352,9 @@ function getCurrentStreak(habit) {
             break;
 
         }
-
     }
 
     return streak;
-
 }
 
 
@@ -1339,7 +1363,9 @@ function getBestStreak(habit) {
     const completedDates = Object.keys(
         habit.completions || {}
     )
-    .filter(key => habit.completions[key])
+    .filter(
+        key => habit.completions[key]
+    )
     .sort();
 
     if (completedDates.length === 0) {
@@ -1347,38 +1373,59 @@ function getBestStreak(habit) {
     }
 
     let best = 0;
-
     let current = 0;
 
-    let previous = null;
+    let previousScheduledDate = null;
 
     for (const key of completedDates) {
 
-        if (!previous) {
+        const date = parseKey(key);
+
+        // Ignore completions that happened on a day
+        // when this habit was not scheduled.
+        if (
+            !isHabitScheduledForDate(
+                habit,
+                date
+            )
+        ) {
+            continue;
+        }
+
+        // First scheduled completion
+        if (!previousScheduledDate) {
 
             current = 1;
 
         } else {
 
-            let date = parseKey(previous);
+            // Find the next scheduled day
+            // after the previous scheduled day.
+            let expectedDate =
+                new Date(previousScheduledDate);
 
-            date.setDate(
-                date.getDate() + 1
+            expectedDate.setDate(
+                expectedDate.getDate() + 1
             );
 
-            let expected = dateKey(date);
-
-            while (isVacation(expected)) {
-
-                date.setDate(
-                    date.getDate() + 1
+            while (
+                isVacation(
+                    dateKey(expectedDate)
+                ) ||
+                !isHabitScheduledForDate(
+                    habit,
+                    expectedDate
+                )
+            ) {
+                expectedDate.setDate(
+                    expectedDate.getDate() + 1
                 );
-
-                expected = dateKey(date);
-
             }
 
-            if (key === expected) {
+            const expectedKey =
+                dateKey(expectedDate);
+
+            if (key === expectedKey) {
 
                 current++;
 
@@ -1387,7 +1434,6 @@ function getBestStreak(habit) {
                 current = 1;
 
             }
-
         }
 
         best = Math.max(
@@ -1395,12 +1441,11 @@ function getBestStreak(habit) {
             current
         );
 
-        previous = key;
-
+        previousScheduledDate =
+            new Date(date);
     }
 
     return best;
-
 }
 
 
