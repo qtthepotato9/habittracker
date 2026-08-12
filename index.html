@@ -1086,7 +1086,8 @@ const colorOptions = [
 let data = loadData();
 
 let editingHabitId = null;
-
+let selectedSchedule = "daily";
+let selectedDays = [0, 1, 2, 3, 4, 5, 6];
 let calendarDate = new Date();
 
 let selectedHistoryDate = todayKey();
@@ -1667,7 +1668,76 @@ function setupHabitChoices() {
 
 }
 
+function selectSchedule(type) {
 
+    selectedSchedule = type;
+
+    const dailyButton =
+        document.getElementById("scheduleDaily");
+
+    const weeklyButton =
+        document.getElementById("scheduleWeekly");
+
+    const daysContainer =
+        document.getElementById("scheduleDays");
+
+    dailyButton.classList.toggle(
+        "selected",
+        type === "daily"
+    );
+
+    weeklyButton.classList.toggle(
+        "selected",
+        type === "weekly"
+    );
+
+    daysContainer.style.display =
+        type === "weekly"
+            ? "grid"
+            : "none";
+}
+
+
+function setupScheduleChoices() {
+
+    document
+        .querySelectorAll(".day-choice")
+        .forEach(button => {
+
+            button.classList.toggle(
+                "selected",
+                selectedDays.includes(
+                    Number(button.dataset.day)
+                )
+            );
+
+            button.onclick = () => {
+
+                const day =
+                    Number(button.dataset.day);
+
+                if (selectedDays.includes(day)) {
+
+                    selectedDays =
+                        selectedDays.filter(
+                            d => d !== day
+                        );
+
+                } else {
+
+                    selectedDays.push(day);
+
+                }
+
+                button.classList.toggle(
+                    "selected",
+                    selectedDays.includes(day)
+                );
+            };
+        });
+
+    selectSchedule(selectedSchedule);
+}
 function openHabitModal(id = null) {
 
     editingHabitId = id;
@@ -1693,7 +1763,10 @@ function openHabitModal(id = null) {
             "Add Habit";
 
         input.value = "";
+        selectedSchedule = "daily";
+        selectedDays = [0, 1, 2, 3, 4, 5, 6];
 
+        setupScheduleChoices();
         document
             .querySelector(".emoji-choice")
             ?.classList.add("selected");
@@ -1710,7 +1783,15 @@ function openHabitModal(id = null) {
             );
 
         if (!habit) return;
+        selectedSchedule =
+        habit.schedule?.type || "daily";
 
+        selectedDays =
+        habit.schedule?.days
+        ? [...habit.schedule.days]
+        : [0, 1, 2, 3, 4, 5, 6];
+
+        setupScheduleChoices();
         title.textContent =
             "Edit Habit";
 
@@ -1812,18 +1893,16 @@ function saveHabit() {
     if (editingHabitId === null) {
 
         data.habits.push({
-
             id: Date.now(),
-
             name,
-
             icon,
-
             color,
-
-            completions: {}
-
-        });
+            schedule: {
+            type: selectedSchedule,
+            days: [...selectedDays]
+        },
+        completions: {}
+    });
 
         showToast(
             "Habit added! 🌱"
@@ -1848,7 +1927,10 @@ function saveHabit() {
 
             habit.color =
                 color;
-
+            habit.schedule = {
+                type: selectedSchedule,
+                days: [...selectedDays]
+            };
         }
 
         showToast(
