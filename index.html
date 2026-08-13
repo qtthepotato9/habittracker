@@ -1692,7 +1692,7 @@ function renderToday() {
                 </button>
                 <button
                     class="small-button"
-                    onclick="openHabitHistory(${habit.id})">
+                    onclick="event.stopPropagation(); toggleHabit(${habit.id})"
                     📊
                 </button>
                 <button
