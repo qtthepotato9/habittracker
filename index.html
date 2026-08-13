@@ -1649,16 +1649,7 @@ function renderToday() {
 
         card.className =
             "habit-card";
-        card.style.cursor = "pointer";
-
-        card.addEventListener(
-        "click",
-            () => {
-                alert(
-                    `History for ${habit.name} coming next!`
-                );
-            }
-        );
+        
         card.innerHTML = `
 
             <div
