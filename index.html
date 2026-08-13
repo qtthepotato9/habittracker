@@ -1687,7 +1687,7 @@ function renderToday() {
 
                 <button
                     class="small-button"
-                    onclick="openHabitModal(${habit.id})">
+                    onclick="event.stopPropagation(); openHabitModal(${habit.id})">
                     ✏️
                 </button>
                 <button
