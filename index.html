@@ -1105,24 +1105,7 @@ body.dark .calendar-day.vacation {
     </div>
 
 </div>
-<div class="modal-backdrop" id="habitHistoryModal">
 
-    <div class="modal">
-
-        <h2 id="habitHistoryTitle">Habit History</h2>
-
-        <div id="habitHistoryContent"></div>
-
-        <button
-            type="button"
-            class="secondary-button"
-            onclick="closeHabitHistory()">
-            Close
-        </button>
-
-    </div>
-
-</div>
 
 <!-- VACATION MODAL -->
 
@@ -1669,121 +1652,11 @@ function renderToday() {
         card.style.cursor = "pointer";
 
         card.addEventListener(
-            "click",
+        "click",
             () => {
-
-                document.getElementById(
-                    "habitHistoryTitle"
-                ).textContent =
-                    habit.name + " History";
-
-                document.getElementById(
-                    "habitHistoryContent"
-                ).innerHTML = `
-                    document.getElementById(
-                        "habitHistoryContent"
-                    ).innerHTML = `
-
-                        <div class="habit-history-summary">
-
-                            <div class="history-stat">
-                                <strong>${completionPercent}%</strong>
-                                <span>Completion</span>
-                            </div>
-
-                            <div class="history-stat">
-                                <strong>🔥 ${current}</strong>
-                                <span>Current streak</span>
-                            </div>
-
-                            <div class="history-stat">
-                                <strong>🏆 ${best}</strong>
-                                <span>Best streak</span>
-                            </div>
-
-                            <div class="history-stat">
-                                <strong>✅ ${completed}</strong>
-                                <span>Completions</span>
-                            </div>
-
-                        </div>
-
-                        <div class="history-section-title">
-                            LAST 30 DAYS
-                        </div>
-                
-                        <div class="habit-history-calendar">
-
-                            ${Array.from(
-                                { length: 30 },
-                                (_, index) => {
-
-                                    const date =
-                                        new Date();
-
-                                    date.setDate(
-                                        date.getDate() -
-                                        (29 - index)
-                                    );
-
-                                    const key =
-                                        dateKey(date);
-
-                                    const scheduled =
-                                        isHabitScheduledForDate(
-                                            habit,
-                                            date
-                                        );
-
-                                    const completedToday =
-                                        scheduled &&
-                                        isCompleted(
-                                            habit,
-                                            key
-                                        );
-
-                                    let status = "not-scheduled";
-
-                                    if (scheduled) {
-                                        status =
-                                            completedToday
-                                                ? "completed"
-                                                : "missed";
-                                    }
-
-                                    return `
-                                        <div class="history-day ${status}">
-                                            <div class="history-day-name">
-                                                ${date.toLocaleDateString(
-                                                    "en-US",
-                                                    { weekday: "short" }
-                                                )}
-                                            </div>
-
-                                            <div class="history-day-number">
-                                                ${date.getDate()}
-                                            </div>
-
-                                            <div class="history-day-status">
-                                                ${
-                                                    status === "completed"
-                                                        ? "✓"
-                                                        : status === "missed"
-                                                            ? "×"
-                                                            : "—"
-                                                }
-                                            </div>
-                                        </div>
-                                    ;
-                                }
-                            ).join("")}
-
-                        </div>
-                    ;
-
-                document.getElementById(
-                    "habitHistoryModal"
-                ).classList.add("show");
+                alert(
+                    `History for ${habit.name} coming next!`
+                );
             }
         );
         card.innerHTML = `
@@ -2142,11 +2015,7 @@ function closeHabitModal() {
         .classList.remove("show");
 
 }
-function closeHabitHistory() {
-    document
-        .getElementById("habitHistoryModal")
-        .classList.remove("show");
-}
+
 function deleteHabit() {
 
     if (editingHabitId === null) {
