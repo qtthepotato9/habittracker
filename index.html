@@ -1690,16 +1690,18 @@ function renderToday() {
                     onclick="event.stopPropagation(); openHabitModal(${habit.id})">
                     ✏️
                 </button>
+
                 <button
                     class="small-button"
-                    onclick="event.stopPropagation(); toggleHabit(${habit.id})"
+                    onclick="event.stopPropagation(); openHabitHistory(${habit.id})">
                     📊
                 </button>
+
                 <button
                     class="check ${
                         completed ? "completed" : ""
                     }"
-                    onclick="toggleHabit(${habit.id})">
+                    onclick="event.stopPropagation(); toggleHabit(${habit.id})">
 
                     ${
                         completed
