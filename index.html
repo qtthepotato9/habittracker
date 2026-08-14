@@ -1913,10 +1913,29 @@ function openHabitHistory(id) {
     ).textContent =
         habit.name + " History";
 
-    document.getElementById(
-        "historyContent"
-    ).innerHTML =
-        "Detailed history coming next.";
+    const current =
+    getCurrentStreak(
+        habit
+    );
+
+const best =
+    getBestStreak(
+        habit
+    );
+
+document.getElementById(
+    "historyContent"
+).innerHTML = `
+
+    <div class="history-stat">
+        🔥 ${current} day current streak
+    </div>
+
+    <div class="history-stat">
+        🏆 ${best} day best streak
+    </div>
+
+`;
 
     document.getElementById(
         "historyModal"
