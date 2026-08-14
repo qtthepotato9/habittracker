@@ -446,7 +446,10 @@ body.dark .check {
 .modal h2 {
     margin: 0 0 20px;
 }
-
+#historyContent {
+    margin: 20px 0;
+    text-align: left;
+}
 .form-label {
     display: block;
     font-size: 12px;
@@ -1895,9 +1898,41 @@ function setupScheduleChoices() {
     selectSchedule(selectedSchedule);
 }
 function openHabitHistory(id) {
-    alert(`History for habit ${id} coming next!`);
+
+    const habit =
+        data.habits.find(
+            habit => habit.id === id
+        );
+
+    if (!habit) {
+        return;
+    }
+
+    document.getElementById(
+        "historyTitle"
+    ).textContent =
+        habit.name + " History";
+
+    document.getElementById(
+        "historyContent"
+    ).innerHTML =
+        "Detailed history coming next.";
+
+    document.getElementById(
+        "historyModal"
+    ).classList.add(
+        "show"
+    );
 }
 
+function closeHistoryModal() {
+
+    document.getElementById(
+        "historyModal"
+    ).classList.remove(
+        "show"
+    );
+}
 function openHabitModal(id = null) {
 
     editingHabitId = id;
@@ -3061,6 +3096,30 @@ function renderAll() {
 renderAll();
 
 </script>
+<div class="modal-backdrop" id="historyModal">
 
+    <div class="modal">
+
+        <h2 id="historyTitle">
+            Habit History
+        </h2>
+
+        <div id="historyContent">
+
+            History coming soon...
+
+        </div>
+
+        <button
+            class="primary-button"
+            onclick="closeHistoryModal()">
+
+            Close
+
+        </button>
+
+    </div>
+
+</div>
 </body>
 </html>
