@@ -1922,6 +1922,10 @@ const best =
     getBestStreak(
         habit
     );
+const totalDays =
+    Object.keys(
+        habit.completions || {}
+    ).length;
 
 document.getElementById(
     "historyContent"
@@ -1934,6 +1938,9 @@ document.getElementById(
     <div class="history-stat">
         🏆 ${best} day best streak
     </div>
+    <div class="history-stat">
+    ✅ ${totalDays} total completions
+</div>
 
 `;
 
