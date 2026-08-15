@@ -1923,8 +1923,10 @@ const best =
         habit
     );
 const totalDays =
-    Object.keys(
+    Object.values(
         habit.completions || {}
+    ).filter(
+        completed => completed
     ).length;
 
 document.getElementById(
