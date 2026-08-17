@@ -2039,7 +2039,19 @@ document.getElementById(
 
 </div>
 `;
+const historyWeekIcons =
+    document.getElementById(
+        "historyWeekIcons"
+    );
 
+const testIcon =
+    getHistoryIcon(
+        habit,
+        new Date()
+    );
+
+historyWeekIcons.innerHTML =
+    `<span>${testIcon}</span>`;
  document.getElementById(
         "historyModal"
     ).classList.add(
