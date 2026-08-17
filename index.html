@@ -1928,7 +1928,35 @@ const totalDays =
     ).filter(
         completed => completed
     ).length;
+const startDate =
+    new Date(habit.id);
 
+const today =
+    new Date();
+
+let scheduledDays = 0;
+
+for (
+    let date = new Date(startDate);
+    date <= today;
+    date.setDate(date.getDate() + 1)
+) {
+    if (
+        isHabitScheduledForDate(
+            habit,
+            date
+        )
+    ) {
+        scheduledDays++;
+    }
+}
+
+const completionRate =
+    scheduledDays > 0
+        ? Math.round(
+            (totalDays / scheduledDays) * 100
+        )
+        : 0;
 document.getElementById(
     "historyContent"
 ).innerHTML = `
@@ -1942,6 +1970,9 @@ document.getElementById(
     </div>
     <div class="history-stat">
     ✅ ${totalDays} total completions
+</div>
+<div class="history-stat">
+    📈 ${completionRate}% completion rate
 </div>
 
 `;
