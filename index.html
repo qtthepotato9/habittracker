@@ -2014,21 +2014,65 @@ document.getElementById(
         <span>S</span>
     </div>
 
-    <div class="history-weekdays">
-        <span>1</span>
-        <span>2</span>
-        <span>3</span>
-        <span>4</span>
-        <span>5</span>
-        <span>6</span>
-        <span>7</span>
+    <div
+        class="history-weekdays"
+        id="historyWeekIcons">
     </div>
 
 </div>
 
 </div>
 `;
+const historyWeekIcons =
+    document.getElementById(
+        "historyWeekIcons"
+    );
 
+const today =
+    new Date();
+
+const sunday =
+    new Date(today);
+
+sunday.setDate(
+    today.getDate() -
+    today.getDay()
+);
+
+historyWeekIcons.innerHTML = "";
+
+for (
+    let i = 0;
+    i < 7;
+    i++
+) {
+    const date =
+        new Date(sunday);
+
+    date.setDate(
+        sunday.getDate() + i
+    );
+
+    const key =
+        dateKey(date);
+
+    const span =
+        document.createElement(
+            "span"
+        );
+
+    if (
+        habit.completions &&
+        habit.completions[key]
+    ) {
+        span.textContent =
+            habit.icon;
+    }
+
+    historyWeekIcons.appendChild(
+        span
+    );
+}
     document.getElementById(
         "historyModal"
     ).classList.add(
