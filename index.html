@@ -450,6 +450,15 @@ body.dark .check {
     margin: 20px 0;
     text-align: left;
 }
+.history-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.history-stat {
+    padding: 12px 0;
+}
 .form-label {
     display: block;
     font-size: 12px;
@@ -1961,6 +1970,8 @@ document.getElementById(
     "historyContent"
 ).innerHTML = `
 
+<div class="history-stats">
+
     <div class="history-stat">
         🔥 ${current} day current streak
     </div>
@@ -1968,11 +1979,15 @@ document.getElementById(
     <div class="history-stat">
         🏆 ${best} day best streak
     </div>
+
     <div class="history-stat">
-    ✅ ${totalDays} total completions
-</div>
-<div class="history-stat">
-    📈 ${completionRate}% completion rate
+        📈 ${completionRate}% completion rate
+    </div>
+
+    <div class="history-stat">
+        ✅ ${totalDays} total completions
+    </div>
+
 </div>
 
 `;
