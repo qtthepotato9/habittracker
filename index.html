@@ -459,15 +459,6 @@ body.dark .check {
 .history-stat {
     padding: 6px 0;
 }
-.history-days {
-    margin-top: 16px;
-}
-
-.history-day {
-    display: flex;
-    justify-content: space-between;
-    padding: 6px 0;
-}
 .form-label {
     display: block;
     font-size: 12px;
@@ -1998,66 +1989,9 @@ document.getElementById(
     </div>
 
 </div>
-<div class="history-days" id="historyDays">
-</div>
+
 `;
-const historyDays =
-    document.getElementById(
-        "historyDays"
-    );
 
-const today =
-    new Date();
-
-const startDate =
-    new Date(habit.id);
-
-historyDays.innerHTML = "";
-
-for (
-    let date = new Date(startDate);
-    date <= today;
-    date.setDate(
-        date.getDate() + 1
-    )
-) {
-
-    if (
-        !isHabitScheduledForDate(
-            habit,
-            date
-        )
-    ) {
-        continue;
-    }
-
-    const key =
-        dateKey(date);
-
-    const completed =
-        habit.completions &&
-        habit.completions[key];
-
-    const row =
-        document.createElement(
-            "div"
-        );
-
-    row.className =
-        "history-day";
-
-    row.innerHTML = `
-        <span>
-            ${date.toLocaleDateString()}
-        </span>
-
-        <span>
-            ${completed ? "✅" : "❌"}
-        </span>
-    `;
-
-    historyDays.appendChild(row);
-}
     document.getElementById(
         "historyModal"
     ).classList.add(
