@@ -1993,9 +1993,30 @@ document.getElementById(
 
 </div>
 <div id="historyDays">
-    <div class="history-day">
-    ${new Date().toLocaleDateString()}
-    </div>
+
+    ${
+        Object.keys(
+            habit.completions || {}
+        )
+        .filter(
+            key =>
+                habit.completions[key]
+        )
+        .sort()
+        .reverse()
+        .map(
+            key => `
+                <div class="history-day">
+                    ${new Date(
+                        key + "T00:00:00"
+                    ).toLocaleDateString()}
+                    <span>✅</span>
+                </div>
+            `
+        )
+        .join("")
+    }
+
 </div>
 `;
 
