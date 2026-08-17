@@ -2043,48 +2043,14 @@ const historyWeekIcons =
     document.getElementById(
         "historyWeekIcons"
     );
-
-const today =
-    new Date();
-
-const sunday =
-    new Date(today);
-
-sunday.setDate(
-    today.getDate() -
-    today.getDay()
-);
-
-historyWeekIcons.innerHTML = "";
-
-for (
-    let i = 0;
-    i < 7;
-    i++
-) {
-
-    const date =
-        new Date(sunday);
-
-    date.setDate(
-        sunday.getDate() + i
+const testIcon =
+    getHistoryIcon(
+        habit,
+        new Date()
     );
 
-    const icon =
-        getHistoryIcon(
-            habit,
-            date
-        );
-
-    historyWeekIcons.innerHTML +=
-        `<span>${icon}</span>`;
-}
- document.getElementById(
-        "historyModal"
-    ).classList.add(
-        "show"
-    );
-}
+historyWeekIcons.innerHTML =
+    `<span>${testIcon}</span>`;
 
 function closeHistoryModal() {
 
