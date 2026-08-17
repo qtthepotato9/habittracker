@@ -1981,47 +1981,6 @@ const completionRate =
 document.getElementById(
     "historyContent"
 ).innerHTML = `
-
-<div class="history-stats">
-
-    <div class="history-stat">
-        🔥 ${current} day current streak
-    </div>
-
-    <div class="history-stat">
-        🏆 ${best} day best streak
-    </div>
-
-    <div class="history-stat">
-        📈 ${completionRate}% completion rate
-    </div>
-
-    <div class="history-stat">
-        ✅ ${totalDays} total completions
-    </div>
-
-</div>
-<div id="historyDays">
-    <div class="history-week">
-
-    <div class="history-weekdays">
-        <span>S</span>
-        <span>M</span>
-        <span>T</span>
-        <span>W</span>
-        <span>T</span>
-        <span>F</span>
-        <span>S</span>
-    </div>
-
-    <div
-        class="history-weekdays"
-        id="historyWeekIcons">
-    </div>
-
-</div>
-
-</div>
 const historyWeekIcons =
     document.getElementById(
         "historyWeekIcons"
@@ -2072,6 +2031,46 @@ for (
         span
     );
 }
+<div class="history-stats">
+
+    <div class="history-stat">
+        🔥 ${current} day current streak
+    </div>
+
+    <div class="history-stat">
+        🏆 ${best} day best streak
+    </div>
+
+    <div class="history-stat">
+        📈 ${completionRate}% completion rate
+    </div>
+
+    <div class="history-stat">
+        ✅ ${totalDays} total completions
+    </div>
+
+</div>
+<div id="historyDays">
+    <div class="history-week">
+
+    <div class="history-weekdays">
+        <span>S</span>
+        <span>M</span>
+        <span>T</span>
+        <span>W</span>
+        <span>T</span>
+        <span>F</span>
+        <span>S</span>
+    </div>
+
+    <div
+        class="history-weekdays"
+        id="historyWeekIcons">
+    </div>
+
+</div>
+
+</div>
 `;
 
     document.getElementById(
