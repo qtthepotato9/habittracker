@@ -2044,14 +2044,41 @@ const historyWeekIcons =
         "historyWeekIcons"
     );
 
-const testIcon =
-    getHistoryIcon(
-        habit,
-        new Date()
+const today =
+    new Date();
+
+const sunday =
+    new Date(today);
+
+sunday.setDate(
+    today.getDate() -
+    today.getDay()
+);
+
+historyWeekIcons.innerHTML = "";
+
+for (
+    let i = 0;
+    i < 7;
+    i++
+) {
+
+    const date =
+        new Date(sunday);
+
+    date.setDate(
+        sunday.getDate() + i
     );
 
-historyWeekIcons.innerHTML =
-    `<span>${testIcon}</span>`;
+    const icon =
+        getHistoryIcon(
+            habit,
+            date
+        );
+
+    historyWeekIcons.innerHTML +=
+        `<span>${icon}</span>`;
+}
  document.getElementById(
         "historyModal"
     ).classList.add(
