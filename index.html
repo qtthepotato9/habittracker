@@ -2039,18 +2039,6 @@ document.getElementById(
 
 </div>
 `;
-const historyWeekIcons =
-    document.getElementById(
-        "historyWeekIcons"
-    );
-const testIcon =
-    getHistoryIcon(
-        habit,
-        new Date()
-    );
-
-historyWeekIcons.innerHTML =
-    `<span>${testIcon}</span>`;
 }
 function closeHistoryModal() {
 
@@ -2060,6 +2048,7 @@ function closeHistoryModal() {
         "show"
     );
 }
+
 function openHabitModal(id = null) {
 
     editingHabitId = id;
