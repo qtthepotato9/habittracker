@@ -462,6 +462,12 @@ body.dark .check {
 .history-day {
     padding: 6px 0;
 }
+.history-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    gap: 4px;
+}
 .form-label {
     display: block;
     font-size: 12px;
@@ -1994,7 +2000,18 @@ document.getElementById(
 </div>
 <div id="historyDays">
     <div class="history-week">
+
+    <div class="history-weekdays">
+        <span>S</span>
+        <span>M</span>
+        <span>T</span>
+        <span>W</span>
+        <span>T</span>
+        <span>F</span>
+        <span>S</span>
     </div>
+
+</div>
 </div>
 `;
 
