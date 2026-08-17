@@ -1312,6 +1312,22 @@ function dateKey(date) {
 
     return `${year}-${month}-${day}`;
 }
+function getHistoryIcon(habit, date) {
+
+    const key =
+        dateKey(date);
+
+    if (
+        isCompleted(
+            habit,
+            key
+        )
+    ) {
+        return habit.icon;
+    }
+
+    return "";
+}
 function isHabitScheduledForDate(habit, date) {
 
     if (!habit.schedule) {
@@ -2023,63 +2039,6 @@ document.getElementById(
 
 </div>
 `;
-
-const historyWeekIcons =
-    document.getElementById(
-        "historyWeekIcons"
-    );
-
-const today =
-    new Date();
-
-const sunday =
-    new Date(today);
-
-sunday.setDate(
-    today.getDate() -
-    today.getDay()
-);
-
-historyWeekIcons.innerHTML = "";
-
-for (
-    let i = 0;
-    i < 7;
-    i++
-) {
-    const date =
-        new Date(sunday);
-
-    date.setDate(
-        sunday.getDate() + i
-    );
-
-    const key =
-        dateKey(date);
-
-    const span =
-        document.createElement(
-            "span"
-        );
-
-    if (
-        habit.completions &&
-        habit.completions[key]
-    ) {
-        span.textContent =
-            habit.icon;
-    }
-
-    historyWeekIcons.appendChild(
-        span
-    );
-}
-    document.getElementById(
-        "historyModal"
-    ).classList.add(
-        "show"
-    );
-}
 
 function closeHistoryModal() {
 
