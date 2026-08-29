@@ -2059,7 +2059,9 @@ const testIcon =
         new Date()
     );
 
-historyWeekIcons.children[6].textContent =
+historyWeekIcons.children[
+    new Date().getDay()
+].textContent =
     testIcon;
 document.getElementById(
     "historyModal"
