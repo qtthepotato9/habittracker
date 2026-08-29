@@ -2077,6 +2077,20 @@ historyWeekIcons.children[
         habit,
         yesterday
     );
+const twoDaysAgo =
+    new Date();
+
+twoDaysAgo.setDate(
+    twoDaysAgo.getDate() - 2
+);
+
+historyWeekIcons.children[
+    twoDaysAgo.getDay()
+].textContent =
+    getHistoryIcon(
+        habit,
+        twoDaysAgo
+    );
 document.getElementById(
     "historyModal"
 ).classList.add(
