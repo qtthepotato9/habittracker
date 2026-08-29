@@ -2063,6 +2063,20 @@ historyWeekIcons.children[
     new Date().getDay()
 ].textContent =
     testIcon;
+const yesterday =
+    new Date();
+
+yesterday.setDate(
+    yesterday.getDate() - 1
+);
+
+historyWeekIcons.children[
+    yesterday.getDay()
+].textContent =
+    getHistoryIcon(
+        habit,
+        yesterday
+    );
 document.getElementById(
     "historyModal"
 ).classList.add(
