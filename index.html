@@ -2059,8 +2059,8 @@ const testIcon =
         new Date()
     );
 
-historyWeekIcons.innerHTML =
-    `<span>${testIcon}</span>`;
+historyWeekIcons.children[6].textContent =
+    testIcon;
 document.getElementById(
     "historyModal"
 ).classList.add(
