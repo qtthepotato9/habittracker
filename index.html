@@ -2045,14 +2045,31 @@ const historyWeekIcons =
         "historyWeekIcons"
     );
 
-const testIcon =
+const today =
+    new Date();
+
+const yesterday =
+    new Date(today);
+
+yesterday.setDate(
+    today.getDate() - 1
+);
+
+const todayIcon =
     getHistoryIcon(
         habit,
-        new Date()
+        today
+    );
+
+const yesterdayIcon =
+    getHistoryIcon(
+        habit,
+        yesterday
     );
 
 historyWeekIcons.innerHTML =
-    `<span>${testIcon}</span>`;
+    `<span>${yesterdayIcon}</span>
+     <span>${todayIcon}</span>`;
 document.getElementById(
     "historyModal"
 ).classList.add(
