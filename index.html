@@ -2091,6 +2091,20 @@ historyWeekIcons.children[
         habit,
         twoDaysAgo
     );
+const threeDaysAgo =
+    new Date();
+
+threeDaysAgo.setDate(
+    threeDaysAgo.getDate() - 3
+);
+
+historyWeekIcons.children[
+    threeDaysAgo.getDay()
+].textContent =
+    getHistoryIcon(
+        habit,
+        threeDaysAgo
+    );
 document.getElementById(
     "historyModal"
 ).classList.add(
