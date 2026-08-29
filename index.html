@@ -2053,7 +2053,7 @@ const historyWeekIcons =
         "historyWeekIcons"
     );
 
-const testIcon =
+const todayIcon =
     getHistoryIcon(
         habit,
         new Date()
@@ -2062,7 +2062,7 @@ const testIcon =
 historyWeekIcons.children[
     new Date().getDay()
 ].textContent =
-    testIcon;
+    todayIcon;
 const yesterday =
     new Date();
 
