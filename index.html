@@ -2085,6 +2085,100 @@ const sundayIcon =
 
 historyWeekIcons.children[0].textContent =
     sundayIcon;
+const weekMonday =
+    new Date(
+        weekSunday
+    );
+
+weekMonday.setDate(
+    weekSunday.getDate() + 1
+);
+
+historyWeekIcons.children[1].textContent =
+    getHistoryIcon(
+        habit,
+        weekMonday
+    );
+
+
+const weekTuesday =
+    new Date(
+        weekSunday
+    );
+
+weekTuesday.setDate(
+    weekSunday.getDate() + 2
+);
+
+historyWeekIcons.children[2].textContent =
+    getHistoryIcon(
+        habit,
+        weekTuesday
+    );
+
+
+const weekWednesday =
+    new Date(
+        weekSunday
+    );
+
+weekWednesday.setDate(
+    weekSunday.getDate() + 3
+);
+
+historyWeekIcons.children[3].textContent =
+    getHistoryIcon(
+        habit,
+        weekWednesday
+    );
+
+
+const weekThursday =
+    new Date(
+        weekSunday
+    );
+
+weekThursday.setDate(
+    weekSunday.getDate() + 4
+);
+
+historyWeekIcons.children[4].textContent =
+    getHistoryIcon(
+        habit,
+        weekThursday
+    );
+
+
+const weekFriday =
+    new Date(
+        weekSunday
+    );
+
+weekFriday.setDate(
+    weekSunday.getDate() + 5
+);
+
+historyWeekIcons.children[5].textContent =
+    getHistoryIcon(
+        habit,
+        weekFriday
+    );
+
+
+const weekSaturday =
+    new Date(
+        weekSunday
+    );
+
+weekSaturday.setDate(
+    weekSunday.getDate() + 6
+);
+
+historyWeekIcons.children[6].textContent =
+    getHistoryIcon(
+        habit,
+        weekSaturday
+    );
 weekSunday.setDate(
     weekToday.getDate() -
     weekToday.getDay()
