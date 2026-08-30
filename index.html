@@ -2071,6 +2071,11 @@ historyWeekIcons.children[
     new Date().getDay()
 ].textContent =
     todayIcon;
+historyWeekIcons.children[
+    new Date().getDay()
+].classList.add(
+    "today"
+);
 const yesterday =
     new Date();
 
