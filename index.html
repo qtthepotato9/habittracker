@@ -2072,6 +2072,16 @@ historyWeekIcons
             );
         }
     );
+const weekToday =
+    new Date();
+
+const weekSunday =
+    new Date(weekToday);
+
+weekSunday.setDate(
+    weekToday.getDate() -
+    weekToday.getDay()
+);
 const todayIcon =
     getHistoryIcon(
         habit,
