@@ -1476,7 +1476,9 @@ function toggleHabit(id) {
 function getCurrentStreak(habit) {
 
     let streak = 0;
-    let date = new Date();
+    let date = parseKey(
+    todayKey()
+);
 
     while (true) {
 
