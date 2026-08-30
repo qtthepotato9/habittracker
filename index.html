@@ -2179,6 +2179,11 @@ historyWeekIcons.children[6].textContent =
         habit,
         weekSaturday
     );
+historyWeekIcons.children[
+    new Date().getDay()
+].classList.add(
+    "today"
+);
 weekSunday.setDate(
     weekToday.getDate() -
     weekToday.getDay()
