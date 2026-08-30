@@ -2072,109 +2072,109 @@ historyWeekIcons
             );
         }
     );
-const today =
-    new Date();
-
-const sunday =
-    new Date(today);
-
-sunday.setDate(
-    today.getDate() -
-    today.getDay()
-);
-
-const sundayIcon =
+const todayIcon =
     getHistoryIcon(
         habit,
-        sunday
-    );
-
-historyWeekIcons.children[0].textContent =
-    sundayIcon;
-
-const monday =
-    new Date(sunday);
-
-monday.setDate(
-    sunday.getDate() + 1
-);
-
-historyWeekIcons.children[1].textContent =
-    getHistoryIcon(
-        habit,
-        monday
-    );
-
-const tuesday =
-    new Date(sunday);
-
-tuesday.setDate(
-    sunday.getDate() + 2
-);
-
-historyWeekIcons.children[2].textContent =
-    getHistoryIcon(
-        habit,
-        tuesday
-    );
-
-const wednesday =
-    new Date(sunday);
-
-wednesday.setDate(
-    sunday.getDate() + 3
-);
-
-historyWeekIcons.children[3].textContent =
-    getHistoryIcon(
-        habit,
-        wednesday
-    );
-
-const thursday =
-    new Date(sunday);
-
-thursday.setDate(
-    sunday.getDate() + 4
-);
-
-historyWeekIcons.children[4].textContent =
-    getHistoryIcon(
-        habit,
-        thursday
-    );
-
-const friday =
-    new Date(sunday);
-
-friday.setDate(
-    sunday.getDate() + 5
-);
-
-historyWeekIcons.children[5].textContent =
-    getHistoryIcon(
-        habit,
-        friday
-    );
-
-const saturday =
-    new Date(sunday);
-
-saturday.setDate(
-    sunday.getDate() + 6
-);
-
-historyWeekIcons.children[6].textContent =
-    getHistoryIcon(
-        habit,
-        saturday
+        new Date()
     );
 
 historyWeekIcons.children[
-    today.getDay()
+    new Date().getDay()
+].textContent =
+    todayIcon;
+historyWeekIcons.children[
+    new Date().getDay()
 ].classList.add(
     "today"
 );
+const yesterday =
+    new Date();
+
+yesterday.setDate(
+    yesterday.getDate() - 1
+);
+historyWeekIcons.children[
+    yesterday.getDay()
+].textContent =
+    getHistoryIcon(
+        habit,
+        yesterday
+    );
+const twoDaysAgo =
+    new Date();
+
+twoDaysAgo.setDate(
+    twoDaysAgo.getDate() - 2
+);
+
+historyWeekIcons.children[
+    twoDaysAgo.getDay()
+].textContent =
+    getHistoryIcon(
+        habit,
+        twoDaysAgo
+    );
+const threeDaysAgo =
+    new Date();
+
+threeDaysAgo.setDate(
+    threeDaysAgo.getDate() - 3
+);
+
+historyWeekIcons.children[
+    threeDaysAgo.getDay()
+].textContent =
+    getHistoryIcon(
+        habit,
+        threeDaysAgo
+    );
+const fourDaysAgo =
+    new Date();
+
+fourDaysAgo.setDate(
+    fourDaysAgo.getDate() - 4
+);
+
+historyWeekIcons.children[
+    fourDaysAgo.getDay()
+].textContent =
+    getHistoryIcon(
+        habit,
+        fourDaysAgo
+    );
+
+
+const fiveDaysAgo =
+    new Date();
+
+fiveDaysAgo.setDate(
+    fiveDaysAgo.getDate() - 5
+);
+
+historyWeekIcons.children[
+    fiveDaysAgo.getDay()
+].textContent =
+    getHistoryIcon(
+        habit,
+        fiveDaysAgo
+    );
+
+
+const sixDaysAgo =
+    new Date();
+
+sixDaysAgo.setDate(
+    sixDaysAgo.getDate() - 6
+);
+
+historyWeekIcons.children[
+    sixDaysAgo.getDay()
+].textContent =
+    getHistoryIcon(
+        habit,
+        sixDaysAgo
+    );
+
 document.getElementById(
     "historyModal"
 ).classList.add(
