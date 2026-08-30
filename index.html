@@ -2077,7 +2077,14 @@ const weekToday =
 
 const weekSunday =
     new Date(weekToday);
+const sundayIcon =
+    getHistoryIcon(
+        habit,
+        weekSunday
+    );
 
+historyWeekIcons.children[0].textContent =
+    sundayIcon;
 weekSunday.setDate(
     weekToday.getDate() -
     weekToday.getDay()
