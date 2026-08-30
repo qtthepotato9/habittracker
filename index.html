@@ -1973,7 +1973,18 @@ function openHabitHistory(id) {
     getCurrentStreak(
         habit
     );
-
+alert(
+    "Scheduled today: " +
+    isHabitScheduledForDate(
+        habit,
+        new Date()
+    ) +
+    "\nCompleted today: " +
+    isCompleted(
+        habit,
+        todayKey()
+    )
+);
 const best =
     getBestStreak(
         habit
