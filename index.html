@@ -2507,8 +2507,9 @@ function showPage(page, button) {
     }
 
     if (page === "history") {
-        renderCalendar();
-    }
+    selectedHistoryDate = todayKey();
+    renderCalendar();
+}
 
 }
 
