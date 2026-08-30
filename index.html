@@ -2062,7 +2062,16 @@ const historyWeekIcons =
     document.getElementById(
         "historyWeekIcons"
     );
-
+historyWeekIcons
+    .querySelectorAll("span")
+    .forEach(
+        span => {
+            span.textContent = "";
+            span.classList.remove(
+                "today"
+            );
+        }
+    );
 const todayIcon =
     getHistoryIcon(
         habit,
