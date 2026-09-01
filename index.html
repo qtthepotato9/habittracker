@@ -2115,6 +2115,12 @@ const weekToday =
 
 const weekSunday =
     new Date(weekToday);
+
+weekSunday.setDate(
+    weekToday.getDate() -
+    weekToday.getDay()
+);
+
 const sundayIcon =
     getHistoryIcon(
         habit,
@@ -2221,10 +2227,6 @@ historyWeekIcons.children[
     new Date().getDay()
 ].classList.add(
     "today"
-);
-weekSunday.setDate(
-    weekToday.getDate() -
-    weekToday.getDay()
 );
 
 document.getElementById(
